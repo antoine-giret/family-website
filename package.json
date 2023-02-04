@@ -32,6 +32,9 @@
   "devDependencies": {
     "@commitlint/cli": "17.4.2",
     "@commitlint/config-conventional": "17.4.2",
+    "@emotion/react": "11.10.5",
+    "@mdx-js/react": "2.2.1",
+    "@theme-ui/mdx": "0.15.4",
     "@types/node": "18.11.18",
     "@types/react": "18.0.27",
     "@types/react-dom": "18.0.10",
@@ -54,5 +57,10 @@
       "npx prettier --write \"src/**/*.{js,jsx,ts,tsx,css,md,json}\" --config ./.prettierrc",
       "npx eslint --fix \"src/**/*.{js,jsx,ts,tsx,json}\""
     ]
+  },
+  "engines": {
+    "node": ">= 18.13.0",
+    "npm": "please-use-yarn",
+    "yarn": ">= 1.22.15"
   }
 }
