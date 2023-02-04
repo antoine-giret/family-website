@@ -15,7 +15,8 @@
     "clean": "gatsby clean",
     "lint": "eslint \"src/**/*.{js,jsx,ts,tsx,json}\"",
     "lint:fix": "eslint --fix \"src/**/*.{js,jsx,ts,tsx,json}\"",
-    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,css,md,json}\" --config ./.prettierrc"
+    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,css,md,json}\" --config ./.prettierrc",
+    "prepare": "husky install"
   },
   "dependencies": {
     "gatsby": "5.5.0",
@@ -41,7 +42,15 @@
     "eslint-plugin-prettier": "4.2.1",
     "eslint-plugin-react": "7.32.2",
     "eslint-plugin-react-hooks": "4.6.0",
+    "husky": "8.0.0",
+    "lint-staged": "13.1.0",
     "prettier": "2.8.3",
     "typescript": "4.9.4"
+  },
+  "lint-staged":{
+    "**/*.{js,jsx,ts,tsx}":[
+      "npx prettier --write \"src/**/*.{js,jsx,ts,tsx,css,md,json}\" --config ./.prettierrc",
+      "npx eslint --fix \"src/**/*.{js,jsx,ts,tsx,json}\""
+    ]
   }
 }
