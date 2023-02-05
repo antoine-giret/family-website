@@ -1,10 +1,11 @@
 import * as React from 'react';
 import type { HeadFC } from 'gatsby';
+import { Heading } from 'theme-ui';
 
 function IndexPage(): JSX.Element {
   return (
     <main>
-      <h1>Hello World</h1>
+      <Heading as='h1'>Hello World</Heading>
     </main>
   );
 }
