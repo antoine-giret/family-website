@@ -1,12 +1,13 @@
 import { HeadFC } from 'gatsby';
 import * as React from 'react';
+import { Heading } from 'theme-ui';
 
 // TODO:
 function NotFoundPage(): JSX.Element {
   return (
-    <main>
-      <h1>404 Not found</h1>
-    </main>
+    <>
+      <Heading as='h1'>404 Not found</Heading>
+    </>
   );
 }
 
