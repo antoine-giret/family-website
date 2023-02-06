@@ -6,7 +6,7 @@ import { Heading } from 'theme-ui';
 function NotFoundPage(): JSX.Element {
   return (
     <>
-      <Heading as='h1'>404 Not found</Heading>
+      <Heading as='h2'>404 Not found</Heading>
     </>
   );
 }

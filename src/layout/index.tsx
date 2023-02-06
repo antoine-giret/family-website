@@ -1,6 +1,6 @@
 import { PageProps } from 'gatsby';
 import React, { ReactElement } from 'react';
-import { Box } from 'theme-ui';
+import { Box, Flex } from 'theme-ui';
 
 import Footer from './footer';
 import Header from './header';
@@ -10,11 +10,13 @@ function Layout({
   ...props
 }: Omit<PageProps, 'children'> & { children: ReactElement }): JSX.Element {
   return (
-    <Box>
+    <Flex sx={{ flexDirection: 'column', height: '100vh' }}>
       <Header {...props} />
-      <Box as='main'>{children}</Box>
+      <Box as='main' sx={{ flexGrow: 1 }}>
+        {children}
+      </Box>
       <Footer {...props} />
-    </Box>
+    </Flex>
   );
 }
 

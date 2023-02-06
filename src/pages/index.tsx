@@ -5,7 +5,7 @@ import { Heading } from 'theme-ui';
 function IndexPage(): JSX.Element {
   return (
     <>
-      <Heading as='h1'>Hello World</Heading>
+      <Heading as='h2'>Hello World</Heading>
     </>
   );
 }
