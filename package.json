@@ -8,6 +8,7 @@
     "gatsby"
   ],
   "scripts": {
+    "preinstall": "cp -n .env.sample .env | true",
     "develop": "gatsby develop",
     "start": "gatsby develop",
     "build": "gatsby build",
@@ -21,10 +22,12 @@
   "dependencies": {
     "gatsby": "5.5.0",
     "gatsby-omni-font-loader": "2.0.2",
+    "gatsby-plugin-graphql-codegen": "3.1.1",
     "gatsby-plugin-image": "3.5.0",
     "gatsby-plugin-sharp": "5.5.0",
     "gatsby-plugin-theme-ui": "0.15.4",
     "gatsby-source-filesystem": "5.5.0",
+    "gatsby-source-prismic": "5.2.10",
     "gatsby-transformer-sharp": "5.5.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",

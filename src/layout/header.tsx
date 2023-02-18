@@ -1,8 +1,30 @@
-import { Link, PageProps } from 'gatsby';
+import { graphql, Link, PageProps, useStaticQuery } from 'gatsby';
 import React from 'react';
 import { Box, Flex, Heading, Text } from 'theme-ui';
 
+import { HeaderQuery } from '../gatsby-types';
+
 function Header(_: Omit<PageProps, 'children'>): JSX.Element {
+  const { prismicHeader } = useStaticQuery<HeaderQuery>(graphql`
+    query Header {
+      prismicHeader {
+        data {
+          title {
+            text
+          }
+          nav_links {
+            link {
+              url
+            }
+            label {
+              text
+            }
+          }
+        }
+      }
+    }
+  `);
+
   return (
     <Flex
       as='header'
@@ -15,34 +37,30 @@ function Header(_: Omit<PageProps, 'children'>): JSX.Element {
         paddingY={1}
         sx={{ border: '2px solid var(--theme-ui-colors-primary)', borderRadius: 4 }}
       >
-        <Heading as='h1'>Family Website</Heading>
+        <Heading as='h1'>{prismicHeader?.data.title?.text || 'Family Website'}</Heading>
       </Box>
-      <Flex sx={{ columnGap: 4, flexWrap: 'wrap', rowGap: 2 }}>
-        <Link
-          activeStyle={{ borderBottom: '1px solid var(--theme-ui-colors-primary)' }}
-          style={{
-            borderBottom: '2px solid transparent',
-            color: 'inherit',
-            fontSize: '1.1rem',
-            textDecoration: 'none',
-          }}
-          to='/'
-        >
-          <Text>Link A</Text>
-        </Link>
-        <Link
-          activeStyle={{ borderBottom: '1px solid var(--theme-ui-colors-primary)' }}
-          style={{
-            borderBottom: '2px solid transparent',
-            color: 'inherit',
-            fontSize: '1.1rem',
-            textDecoration: 'none',
-          }}
-          to='/foo'
-        >
-          Link B
-        </Link>
-      </Flex>
+      {prismicHeader?.data && (
+        <Flex sx={{ columnGap: 4, flexWrap: 'wrap', rowGap: 2 }}>
+          {prismicHeader.data.nav_links?.map(
+            (link, index) =>
+              link && (
+                <Link
+                  activeStyle={{ borderBottom: '1px solid var(--theme-ui-colors-primary)' }}
+                  key={index}
+                  style={{
+                    borderBottom: '2px solid transparent',
+                    color: 'inherit',
+                    fontSize: '1.1rem',
+                    textDecoration: 'none',
+                  }}
+                  to={link.link?.url || '/'}
+                >
+                  <Text>{link.label?.text || `Page ${index}`}</Text>
+                </Link>
+              ),
+          )}
+        </Flex>
+      )}
     </Flex>
   );
 }

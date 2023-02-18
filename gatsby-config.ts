@@ -1,4 +1,9 @@
+import env from 'dotenv';
 import type { GatsbyConfig } from 'gatsby';
+
+import { linkResolver } from './src/link-resolver';
+
+env.config({ path: '.env' });
 
 const config: GatsbyConfig = {
   siteMetadata: {
@@ -40,6 +45,22 @@ const config: GatsbyConfig = {
         path: './src/images/',
       },
       __key: 'images',
+    },
+    {
+      resolve: 'gatsby-source-prismic',
+      options: {
+        repositoryName: process.env.GATSBY_PRISMIC_REPO_NAME,
+        accessToken: process.env.PRISMIC_ACCESS_TOKEN,
+        customTypesApiToken: process.env.PRISMIC_CUSTOM_TYPES_API_TOKEN,
+        linkResolver,
+      },
+    },
+    {
+      resolve: 'gatsby-plugin-graphql-codegen',
+      options: {
+        fileName: './src/gatsby-types.ts',
+        documentPaths: ['./src/**/*.{ts,tsx}'],
+      },
     },
   ],
 };
