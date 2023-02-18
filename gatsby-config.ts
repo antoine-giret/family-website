@@ -30,6 +30,12 @@ const config: GatsbyConfig = {
       },
     },
     {
+      resolve: 'gatsby-plugin-manifest',
+      options: {
+        icon: './src/assets/images/icon.svg',
+      },
+    },
+    {
       resolve: 'gatsby-plugin-theme-ui',
       options: {
         preset: require('./src/theme'),
@@ -38,14 +44,6 @@ const config: GatsbyConfig = {
     'gatsby-plugin-image',
     'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
-    {
-      resolve: 'gatsby-source-filesystem',
-      options: {
-        name: 'images',
-        path: './src/images/',
-      },
-      __key: 'images',
-    },
     {
       resolve: 'gatsby-source-prismic',
       options: {

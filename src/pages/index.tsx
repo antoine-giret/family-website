@@ -1,6 +1,8 @@
 import React from 'react';
-import type { HeadFC } from 'gatsby';
+import { graphql, HeadFC, useStaticQuery } from 'gatsby';
 import { Heading } from 'theme-ui';
+
+import { HomeHeadQuery } from '../gatsby-types';
 
 function IndexPage(): JSX.Element {
   return (
@@ -13,5 +15,27 @@ function IndexPage(): JSX.Element {
 export default IndexPage;
 
 export const Head: HeadFC = () => {
-  return <title>Family Website</title>;
+  const { prismicHome } = useStaticQuery<HomeHeadQuery>(graphql`
+    query HomeHead {
+      prismicHome {
+        data {
+          page_title {
+            text
+          }
+          page_description {
+            text
+          }
+        }
+      }
+    }
+  `);
+
+  return (
+    <>
+      <title>{prismicHome?.data.page_title?.text || 'Family Website'}</title>
+      {prismicHome?.data.page_description?.text && (
+        <meta name='description' content={prismicHome.data.page_description.text} />
+      )}
+    </>
+  );
 };

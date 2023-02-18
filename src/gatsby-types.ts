@@ -58,10 +58,6 @@ export type File = Node & {
   birthtime?: Maybe<Scalars['Date']>;
   /** @deprecated Use `birthTime` instead */
   birthtimeMs?: Maybe<Scalars['Float']>;
-  blksize?: Maybe<Scalars['Int']>;
-  blocks?: Maybe<Scalars['Int']>;
-  /** Copy file to static directory and return public url to it */
-  publicURL?: Maybe<Scalars['String']>;
   /** Returns all children nodes filtered by type ImageSharp */
   childrenImageSharp?: Maybe<Array<Maybe<ImageSharp>>>;
   /** Returns the first child node of type ImageSharp or null if there are no children of given type on this node */
@@ -1174,9 +1170,52 @@ export type ImgixParamsInput = {
   width?: InputMaybe<Scalars['Float']>;
 };
 
+export type PrismicTripsDataType = {
+  page_title?: Maybe<PrismicStructuredTextType>;
+};
+
+export type PrismicTrips = Node & {
+  data: PrismicTripsDataType;
+  dataRaw: Scalars['JSON'];
+  prismicId: Scalars['ID'];
+  alternate_languages: Array<PrismicAlternateLanguageType>;
+  first_publication_date: Scalars['Date'];
+  href: Scalars['String'];
+  lang: Scalars['String'];
+  last_publication_date: Scalars['Date'];
+  tags: Array<Scalars['String']>;
+  type: Scalars['String'];
+  url?: Maybe<Scalars['String']>;
+  _previewable: Scalars['ID'];
+  id: Scalars['ID'];
+  parent?: Maybe<Node>;
+  children: Array<Node>;
+  internal: Internal;
+};
+
+export type PrismicTripsFirst_Publication_DateArgs = {
+  formatString?: InputMaybe<Scalars['String']>;
+  fromNow?: InputMaybe<Scalars['Boolean']>;
+  difference?: InputMaybe<Scalars['String']>;
+  locale?: InputMaybe<Scalars['String']>;
+};
+
+export type PrismicTripsLast_Publication_DateArgs = {
+  formatString?: InputMaybe<Scalars['String']>;
+  fromNow?: InputMaybe<Scalars['Boolean']>;
+  difference?: InputMaybe<Scalars['String']>;
+  locale?: InputMaybe<Scalars['String']>;
+};
+
 export type PrismicHomeDataType = {
   baseline?: Maybe<PrismicStructuredTextType>;
+  page_description?: Maybe<PrismicStructuredTextType>;
   page_title?: Maybe<PrismicStructuredTextType>;
+};
+
+export type PrismicHeaderDataNavLinks = {
+  label?: Maybe<PrismicStructuredTextType>;
+  link?: Maybe<PrismicLinkType>;
 };
 
 export type PrismicHome = Node & {
@@ -1210,11 +1249,6 @@ export type PrismicHomeLast_Publication_DateArgs = {
   fromNow?: InputMaybe<Scalars['Boolean']>;
   difference?: InputMaybe<Scalars['String']>;
   locale?: InputMaybe<Scalars['String']>;
-};
-
-export type PrismicHeaderDataNavLinks = {
-  label?: Maybe<PrismicStructuredTextType>;
-  link?: Maybe<PrismicLinkType>;
 };
 
 export type PrismicHeaderDataType = {
@@ -1403,7 +1437,7 @@ export type PrismicResumeLast_Publication_DateArgs = {
   locale?: InputMaybe<Scalars['String']>;
 };
 
-export type PrismicAllDocumentTypes = PrismicResume | PrismicHome | PrismicHeader;
+export type PrismicAllDocumentTypes = PrismicResume | PrismicHeader | PrismicTrips | PrismicHome;
 
 export type Query = {
   file?: Maybe<File>;
@@ -1428,6 +1462,8 @@ export type Query = {
   allPrismicEmbedType: PrismicEmbedTypeConnection;
   prismicTypePathType?: Maybe<PrismicTypePathType>;
   allPrismicTypePathType: PrismicTypePathTypeConnection;
+  prismicTrips?: Maybe<PrismicTrips>;
+  allPrismicTrips: PrismicTripsConnection;
   prismicHome?: Maybe<PrismicHome>;
   allPrismicHome: PrismicHomeConnection;
   prismicHeader?: Maybe<PrismicHeader>;
@@ -1468,9 +1504,6 @@ export type QueryFileArgs = {
   ctime?: InputMaybe<DateQueryOperatorInput>;
   birthtime?: InputMaybe<DateQueryOperatorInput>;
   birthtimeMs?: InputMaybe<FloatQueryOperatorInput>;
-  blksize?: InputMaybe<IntQueryOperatorInput>;
-  blocks?: InputMaybe<IntQueryOperatorInput>;
-  publicURL?: InputMaybe<StringQueryOperatorInput>;
   childrenImageSharp?: InputMaybe<ImageSharpFilterListInput>;
   childImageSharp?: InputMaybe<ImageSharpFilterInput>;
   id?: InputMaybe<StringQueryOperatorInput>;
@@ -1696,6 +1729,32 @@ export type QueryPrismicTypePathTypeArgs = {
 export type QueryAllPrismicTypePathTypeArgs = {
   filter?: InputMaybe<PrismicTypePathTypeFilterInput>;
   sort?: InputMaybe<Array<InputMaybe<PrismicTypePathTypeSortInput>>>;
+  skip?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
+};
+
+export type QueryPrismicTripsArgs = {
+  data?: InputMaybe<PrismicTripsDataTypeFilterInput>;
+  dataRaw?: InputMaybe<JsonQueryOperatorInput>;
+  prismicId?: InputMaybe<IdQueryOperatorInput>;
+  alternate_languages?: InputMaybe<PrismicAlternateLanguageTypeFilterListInput>;
+  first_publication_date?: InputMaybe<DateQueryOperatorInput>;
+  href?: InputMaybe<StringQueryOperatorInput>;
+  lang?: InputMaybe<StringQueryOperatorInput>;
+  last_publication_date?: InputMaybe<DateQueryOperatorInput>;
+  tags?: InputMaybe<StringQueryOperatorInput>;
+  type?: InputMaybe<StringQueryOperatorInput>;
+  url?: InputMaybe<StringQueryOperatorInput>;
+  _previewable?: InputMaybe<IdQueryOperatorInput>;
+  id?: InputMaybe<StringQueryOperatorInput>;
+  parent?: InputMaybe<NodeFilterInput>;
+  children?: InputMaybe<NodeFilterListInput>;
+  internal?: InputMaybe<InternalFilterInput>;
+};
+
+export type QueryAllPrismicTripsArgs = {
+  filter?: InputMaybe<PrismicTripsFilterInput>;
+  sort?: InputMaybe<Array<InputMaybe<PrismicTripsSortInput>>>;
   skip?: InputMaybe<Scalars['Int']>;
   limit?: InputMaybe<Scalars['Int']>;
 };
@@ -1999,9 +2058,6 @@ export type FileFieldSelector = {
   ctime?: InputMaybe<FieldSelectorEnum>;
   birthtime?: InputMaybe<FieldSelectorEnum>;
   birthtimeMs?: InputMaybe<FieldSelectorEnum>;
-  blksize?: InputMaybe<FieldSelectorEnum>;
-  blocks?: InputMaybe<FieldSelectorEnum>;
-  publicURL?: InputMaybe<FieldSelectorEnum>;
   childrenImageSharp?: InputMaybe<ImageSharpFieldSelector>;
   childImageSharp?: InputMaybe<ImageSharpFieldSelector>;
   id?: InputMaybe<FieldSelectorEnum>;
@@ -2154,9 +2210,6 @@ export type FileFilterInput = {
   ctime?: InputMaybe<DateQueryOperatorInput>;
   birthtime?: InputMaybe<DateQueryOperatorInput>;
   birthtimeMs?: InputMaybe<FloatQueryOperatorInput>;
-  blksize?: InputMaybe<IntQueryOperatorInput>;
-  blocks?: InputMaybe<IntQueryOperatorInput>;
-  publicURL?: InputMaybe<StringQueryOperatorInput>;
   childrenImageSharp?: InputMaybe<ImageSharpFilterListInput>;
   childImageSharp?: InputMaybe<ImageSharpFilterInput>;
   id?: InputMaybe<StringQueryOperatorInput>;
@@ -2197,9 +2250,6 @@ export type FileSortInput = {
   ctime?: InputMaybe<SortOrderEnum>;
   birthtime?: InputMaybe<SortOrderEnum>;
   birthtimeMs?: InputMaybe<SortOrderEnum>;
-  blksize?: InputMaybe<SortOrderEnum>;
-  blocks?: InputMaybe<SortOrderEnum>;
-  publicURL?: InputMaybe<SortOrderEnum>;
   childrenImageSharp?: InputMaybe<ImageSharpSortInput>;
   childImageSharp?: InputMaybe<ImageSharpSortInput>;
   id?: InputMaybe<SortOrderEnum>;
@@ -3485,8 +3535,7 @@ export type PrismicTypePathTypeSortInput = {
   internal?: InputMaybe<InternalSortInput>;
 };
 
-export type PrismicHomeDataTypeFilterInput = {
-  baseline?: InputMaybe<PrismicStructuredTextTypeFilterInput>;
+export type PrismicTripsDataTypeFilterInput = {
   page_title?: InputMaybe<PrismicStructuredTextTypeFilterInput>;
 };
 
@@ -3521,6 +3570,183 @@ export type PrismicAlternateLanguageTypeFilterInput = {
   lang?: InputMaybe<StringQueryOperatorInput>;
   type?: InputMaybe<StringQueryOperatorInput>;
   raw?: InputMaybe<JsonQueryOperatorInput>;
+};
+
+export type PrismicTripsConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<PrismicTripsEdge>;
+  nodes: Array<PrismicTrips>;
+  pageInfo: PageInfo;
+  distinct: Array<Scalars['String']>;
+  max?: Maybe<Scalars['Float']>;
+  min?: Maybe<Scalars['Float']>;
+  sum?: Maybe<Scalars['Float']>;
+  group: Array<PrismicTripsGroupConnection>;
+};
+
+export type PrismicTripsConnectionDistinctArgs = {
+  field: PrismicTripsFieldSelector;
+};
+
+export type PrismicTripsConnectionMaxArgs = {
+  field: PrismicTripsFieldSelector;
+};
+
+export type PrismicTripsConnectionMinArgs = {
+  field: PrismicTripsFieldSelector;
+};
+
+export type PrismicTripsConnectionSumArgs = {
+  field: PrismicTripsFieldSelector;
+};
+
+export type PrismicTripsConnectionGroupArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
+  field: PrismicTripsFieldSelector;
+};
+
+export type PrismicTripsEdge = {
+  next?: Maybe<PrismicTrips>;
+  node: PrismicTrips;
+  previous?: Maybe<PrismicTrips>;
+};
+
+export type PrismicTripsFieldSelector = {
+  data?: InputMaybe<PrismicTripsDataTypeFieldSelector>;
+  dataRaw?: InputMaybe<FieldSelectorEnum>;
+  prismicId?: InputMaybe<FieldSelectorEnum>;
+  alternate_languages?: InputMaybe<PrismicAlternateLanguageTypeFieldSelector>;
+  first_publication_date?: InputMaybe<FieldSelectorEnum>;
+  href?: InputMaybe<FieldSelectorEnum>;
+  lang?: InputMaybe<FieldSelectorEnum>;
+  last_publication_date?: InputMaybe<FieldSelectorEnum>;
+  tags?: InputMaybe<FieldSelectorEnum>;
+  type?: InputMaybe<FieldSelectorEnum>;
+  url?: InputMaybe<FieldSelectorEnum>;
+  _previewable?: InputMaybe<FieldSelectorEnum>;
+  id?: InputMaybe<FieldSelectorEnum>;
+  parent?: InputMaybe<NodeFieldSelector>;
+  children?: InputMaybe<NodeFieldSelector>;
+  internal?: InputMaybe<InternalFieldSelector>;
+};
+
+export type PrismicTripsDataTypeFieldSelector = {
+  page_title?: InputMaybe<PrismicStructuredTextTypeFieldSelector>;
+};
+
+export type PrismicStructuredTextTypeFieldSelector = {
+  text?: InputMaybe<FieldSelectorEnum>;
+  html?: InputMaybe<FieldSelectorEnum>;
+  richText?: InputMaybe<FieldSelectorEnum>;
+  raw?: InputMaybe<FieldSelectorEnum>;
+};
+
+export type PrismicAlternateLanguageTypeFieldSelector = {
+  id?: InputMaybe<FieldSelectorEnum>;
+  uid?: InputMaybe<FieldSelectorEnum>;
+  lang?: InputMaybe<FieldSelectorEnum>;
+  type?: InputMaybe<FieldSelectorEnum>;
+  raw?: InputMaybe<FieldSelectorEnum>;
+};
+
+export type PrismicTripsGroupConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<PrismicTripsEdge>;
+  nodes: Array<PrismicTrips>;
+  pageInfo: PageInfo;
+  distinct: Array<Scalars['String']>;
+  max?: Maybe<Scalars['Float']>;
+  min?: Maybe<Scalars['Float']>;
+  sum?: Maybe<Scalars['Float']>;
+  group: Array<PrismicTripsGroupConnection>;
+  field: Scalars['String'];
+  fieldValue?: Maybe<Scalars['String']>;
+};
+
+export type PrismicTripsGroupConnectionDistinctArgs = {
+  field: PrismicTripsFieldSelector;
+};
+
+export type PrismicTripsGroupConnectionMaxArgs = {
+  field: PrismicTripsFieldSelector;
+};
+
+export type PrismicTripsGroupConnectionMinArgs = {
+  field: PrismicTripsFieldSelector;
+};
+
+export type PrismicTripsGroupConnectionSumArgs = {
+  field: PrismicTripsFieldSelector;
+};
+
+export type PrismicTripsGroupConnectionGroupArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
+  field: PrismicTripsFieldSelector;
+};
+
+export type PrismicTripsFilterInput = {
+  data?: InputMaybe<PrismicTripsDataTypeFilterInput>;
+  dataRaw?: InputMaybe<JsonQueryOperatorInput>;
+  prismicId?: InputMaybe<IdQueryOperatorInput>;
+  alternate_languages?: InputMaybe<PrismicAlternateLanguageTypeFilterListInput>;
+  first_publication_date?: InputMaybe<DateQueryOperatorInput>;
+  href?: InputMaybe<StringQueryOperatorInput>;
+  lang?: InputMaybe<StringQueryOperatorInput>;
+  last_publication_date?: InputMaybe<DateQueryOperatorInput>;
+  tags?: InputMaybe<StringQueryOperatorInput>;
+  type?: InputMaybe<StringQueryOperatorInput>;
+  url?: InputMaybe<StringQueryOperatorInput>;
+  _previewable?: InputMaybe<IdQueryOperatorInput>;
+  id?: InputMaybe<StringQueryOperatorInput>;
+  parent?: InputMaybe<NodeFilterInput>;
+  children?: InputMaybe<NodeFilterListInput>;
+  internal?: InputMaybe<InternalFilterInput>;
+};
+
+export type PrismicTripsSortInput = {
+  data?: InputMaybe<PrismicTripsDataTypeSortInput>;
+  dataRaw?: InputMaybe<SortOrderEnum>;
+  prismicId?: InputMaybe<SortOrderEnum>;
+  alternate_languages?: InputMaybe<PrismicAlternateLanguageTypeSortInput>;
+  first_publication_date?: InputMaybe<SortOrderEnum>;
+  href?: InputMaybe<SortOrderEnum>;
+  lang?: InputMaybe<SortOrderEnum>;
+  last_publication_date?: InputMaybe<SortOrderEnum>;
+  tags?: InputMaybe<SortOrderEnum>;
+  type?: InputMaybe<SortOrderEnum>;
+  url?: InputMaybe<SortOrderEnum>;
+  _previewable?: InputMaybe<SortOrderEnum>;
+  id?: InputMaybe<SortOrderEnum>;
+  parent?: InputMaybe<NodeSortInput>;
+  children?: InputMaybe<NodeSortInput>;
+  internal?: InputMaybe<InternalSortInput>;
+};
+
+export type PrismicTripsDataTypeSortInput = {
+  page_title?: InputMaybe<PrismicStructuredTextTypeSortInput>;
+};
+
+export type PrismicStructuredTextTypeSortInput = {
+  text?: InputMaybe<SortOrderEnum>;
+  html?: InputMaybe<SortOrderEnum>;
+  richText?: InputMaybe<SortOrderEnum>;
+  raw?: InputMaybe<SortOrderEnum>;
+};
+
+export type PrismicAlternateLanguageTypeSortInput = {
+  id?: InputMaybe<SortOrderEnum>;
+  uid?: InputMaybe<SortOrderEnum>;
+  lang?: InputMaybe<SortOrderEnum>;
+  type?: InputMaybe<SortOrderEnum>;
+  raw?: InputMaybe<SortOrderEnum>;
+};
+
+export type PrismicHomeDataTypeFilterInput = {
+  baseline?: InputMaybe<PrismicStructuredTextTypeFilterInput>;
+  page_description?: InputMaybe<PrismicStructuredTextTypeFilterInput>;
+  page_title?: InputMaybe<PrismicStructuredTextTypeFilterInput>;
 };
 
 export type PrismicHomeConnection = {
@@ -3584,22 +3810,8 @@ export type PrismicHomeFieldSelector = {
 
 export type PrismicHomeDataTypeFieldSelector = {
   baseline?: InputMaybe<PrismicStructuredTextTypeFieldSelector>;
+  page_description?: InputMaybe<PrismicStructuredTextTypeFieldSelector>;
   page_title?: InputMaybe<PrismicStructuredTextTypeFieldSelector>;
-};
-
-export type PrismicStructuredTextTypeFieldSelector = {
-  text?: InputMaybe<FieldSelectorEnum>;
-  html?: InputMaybe<FieldSelectorEnum>;
-  richText?: InputMaybe<FieldSelectorEnum>;
-  raw?: InputMaybe<FieldSelectorEnum>;
-};
-
-export type PrismicAlternateLanguageTypeFieldSelector = {
-  id?: InputMaybe<FieldSelectorEnum>;
-  uid?: InputMaybe<FieldSelectorEnum>;
-  lang?: InputMaybe<FieldSelectorEnum>;
-  type?: InputMaybe<FieldSelectorEnum>;
-  raw?: InputMaybe<FieldSelectorEnum>;
 };
 
 export type PrismicHomeGroupConnection = {
@@ -3678,22 +3890,8 @@ export type PrismicHomeSortInput = {
 
 export type PrismicHomeDataTypeSortInput = {
   baseline?: InputMaybe<PrismicStructuredTextTypeSortInput>;
+  page_description?: InputMaybe<PrismicStructuredTextTypeSortInput>;
   page_title?: InputMaybe<PrismicStructuredTextTypeSortInput>;
-};
-
-export type PrismicStructuredTextTypeSortInput = {
-  text?: InputMaybe<SortOrderEnum>;
-  html?: InputMaybe<SortOrderEnum>;
-  richText?: InputMaybe<SortOrderEnum>;
-  raw?: InputMaybe<SortOrderEnum>;
-};
-
-export type PrismicAlternateLanguageTypeSortInput = {
-  id?: InputMaybe<SortOrderEnum>;
-  uid?: InputMaybe<SortOrderEnum>;
-  lang?: InputMaybe<SortOrderEnum>;
-  type?: InputMaybe<SortOrderEnum>;
-  raw?: InputMaybe<SortOrderEnum>;
 };
 
 export type PrismicHeaderDataTypeFilterInput = {
@@ -4248,6 +4446,17 @@ export type HeaderQuery = {
         link?: { url?: string | null } | null;
         label?: { text?: string | null } | null;
       } | null> | null;
+    };
+  } | null;
+};
+
+export type HomeHeadQueryVariables = Exact<{ [key: string]: never }>;
+
+export type HomeHeadQuery = {
+  prismicHome?: {
+    data: {
+      page_title?: { text?: string | null } | null;
+      page_description?: { text?: string | null } | null;
     };
   } | null;
 };

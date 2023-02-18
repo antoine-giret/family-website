@@ -12,12 +12,12 @@ const theme: Theme = {
   colors: {
     text: '#212121',
     background: '#fff',
-    primary: '#ff9800',
+    primary: '#8bc34a',
     modes: {
       dark: {
         text: '#fff',
         background: '#212121',
-        primary: '#ff9800',
+        primary: '#8bc34a',
       },
     },
   },
