@@ -30,6 +30,12 @@ jobs:
       - run: yarn install --frozen-lockfile --silent
         env:
           CI: true
+      - run: |
+          touch .env
+          echo GATSBY_PRISMIC_REPO_NAME=${{ secrets.GATSBY_PRISMIC_REPO_NAME }} >> .env
+          echo PRISMIC_ACCESS_TOKEN=${{ secrets.PRISMIC_ACCESS_TOKEN }} >> .env
+          echo PRISMIC_CUSTOM_TYPES_API_TOKEN=${{ secrets.PRISMIC_CUSTOM_TYPES_API_TOKEN }} >> .env
+          cat .env
       - run: yarn run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
