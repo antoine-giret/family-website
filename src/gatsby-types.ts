@@ -1171,6 +1171,7 @@ export type ImgixParamsInput = {
 };
 
 export type PrismicTripsDataType = {
+  page_description?: Maybe<PrismicStructuredTextType>;
   page_title?: Maybe<PrismicStructuredTextType>;
 };
 
@@ -3537,6 +3538,7 @@ export type PrismicTypePathTypeSortInput = {
 };
 
 export type PrismicTripsDataTypeFilterInput = {
+  page_description?: InputMaybe<PrismicStructuredTextTypeFilterInput>;
   page_title?: InputMaybe<PrismicStructuredTextTypeFilterInput>;
 };
 
@@ -3633,6 +3635,7 @@ export type PrismicTripsFieldSelector = {
 };
 
 export type PrismicTripsDataTypeFieldSelector = {
+  page_description?: InputMaybe<PrismicStructuredTextTypeFieldSelector>;
   page_title?: InputMaybe<PrismicStructuredTextTypeFieldSelector>;
 };
 
@@ -3726,6 +3729,7 @@ export type PrismicTripsSortInput = {
 };
 
 export type PrismicTripsDataTypeSortInput = {
+  page_description?: InputMaybe<PrismicStructuredTextTypeSortInput>;
   page_title?: InputMaybe<PrismicStructuredTextTypeSortInput>;
 };
 
@@ -4479,4 +4483,15 @@ export type HomeQuery = {
       };
     }>;
   };
+};
+
+export type TripsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type TripsQuery = {
+  prismicTrips?: {
+    data: {
+      page_title?: { text?: string | null } | null;
+      page_description?: { text?: string | null } | null;
+    };
+  } | null;
 };

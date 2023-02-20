@@ -26,6 +26,8 @@ function Header(_: Omit<PageProps, 'children'>): JSX.Element {
     }
   `);
 
+  console.log(prismicHeader);
+
   return (
     <>
       <Helmet htmlAttributes={{ lang: 'fr' }} />
@@ -38,7 +40,7 @@ function Header(_: Omit<PageProps, 'children'>): JSX.Element {
         <Box
           paddingX={2}
           paddingY={1}
-          sx={{ border: '2px solid var(--theme-ui-colors-primary)', borderRadius: 4 }}
+          sx={{ border: '2px solid var(--theme-ui-colors-primary)', borderRadius: 16 }}
         >
           <Heading as='h1'>{prismicHeader?.data.title?.text || 'Family Website'}</Heading>
         </Box>

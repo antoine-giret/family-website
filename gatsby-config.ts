@@ -1,3 +1,4 @@
+import { FilledLinkToDocumentField } from '@prismicio/types';
 import env from 'dotenv';
 import type { GatsbyConfig } from 'gatsby';
 
@@ -50,7 +51,7 @@ const config: GatsbyConfig = {
         repositoryName: process.env.GATSBY_PRISMIC_REPO_NAME,
         accessToken: process.env.PRISMIC_ACCESS_TOKEN,
         customTypesApiToken: process.env.PRISMIC_CUSTOM_TYPES_API_TOKEN,
-        linkResolver,
+        linkResolver: (doc: FilledLinkToDocumentField) => linkResolver(doc),
       },
     },
     {
