@@ -24,7 +24,7 @@ const config: GatsbyConfig = {
         web: [
           {
             name: 'Nunito Sans',
-            file: 'https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&display=swap',
+            file: 'https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700&display=swap',
           },
         ],
       },

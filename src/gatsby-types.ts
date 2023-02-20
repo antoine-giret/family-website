@@ -1208,6 +1208,7 @@ export type PrismicTripsLast_Publication_DateArgs = {
 };
 
 export type PrismicHomeDataType = {
+  about_title?: Maybe<PrismicStructuredTextType>;
   baseline?: Maybe<PrismicStructuredTextType>;
   page_description?: Maybe<PrismicStructuredTextType>;
   page_title?: Maybe<PrismicStructuredTextType>;
@@ -1437,7 +1438,7 @@ export type PrismicResumeLast_Publication_DateArgs = {
   locale?: InputMaybe<Scalars['String']>;
 };
 
-export type PrismicAllDocumentTypes = PrismicResume | PrismicHeader | PrismicTrips | PrismicHome;
+export type PrismicAllDocumentTypes = PrismicResume | PrismicHeader | PrismicHome | PrismicTrips;
 
 export type Query = {
   file?: Maybe<File>;
@@ -3744,6 +3745,7 @@ export type PrismicAlternateLanguageTypeSortInput = {
 };
 
 export type PrismicHomeDataTypeFilterInput = {
+  about_title?: InputMaybe<PrismicStructuredTextTypeFilterInput>;
   baseline?: InputMaybe<PrismicStructuredTextTypeFilterInput>;
   page_description?: InputMaybe<PrismicStructuredTextTypeFilterInput>;
   page_title?: InputMaybe<PrismicStructuredTextTypeFilterInput>;
@@ -3809,6 +3811,7 @@ export type PrismicHomeFieldSelector = {
 };
 
 export type PrismicHomeDataTypeFieldSelector = {
+  about_title?: InputMaybe<PrismicStructuredTextTypeFieldSelector>;
   baseline?: InputMaybe<PrismicStructuredTextTypeFieldSelector>;
   page_description?: InputMaybe<PrismicStructuredTextTypeFieldSelector>;
   page_title?: InputMaybe<PrismicStructuredTextTypeFieldSelector>;
@@ -3889,6 +3892,7 @@ export type PrismicHomeSortInput = {
 };
 
 export type PrismicHomeDataTypeSortInput = {
+  about_title?: InputMaybe<PrismicStructuredTextTypeSortInput>;
   baseline?: InputMaybe<PrismicStructuredTextTypeSortInput>;
   page_description?: InputMaybe<PrismicStructuredTextTypeSortInput>;
   page_title?: InputMaybe<PrismicStructuredTextTypeSortInput>;
@@ -4450,13 +4454,29 @@ export type HeaderQuery = {
   } | null;
 };
 
-export type HomeHeadQueryVariables = Exact<{ [key: string]: never }>;
+export type HomeQueryVariables = Exact<{ [key: string]: never }>;
 
-export type HomeHeadQuery = {
+export type HomeQuery = {
   prismicHome?: {
     data: {
       page_title?: { text?: string | null } | null;
       page_description?: { text?: string | null } | null;
+      baseline?: { html?: string | null } | null;
+      about_title?: { html?: string | null } | null;
     };
   } | null;
+  allPrismicResume: {
+    nodes: Array<{
+      uid: string;
+      data: {
+        avatar?: { alt?: string | null; gatsbyImageData?: any | null } | null;
+        first_name?: { text?: string | null } | null;
+        abstract?: { html?: string | null } | null;
+        social_links?: Array<{
+          icon?: { alt?: string | null; gatsbyImageData?: any | null } | null;
+          link?: { url?: string | null; target?: string | null } | null;
+        } | null> | null;
+      };
+    }>;
+  };
 };

@@ -48,7 +48,7 @@ function Header(_: Omit<PageProps, 'children'>): JSX.Element {
               (link, index) =>
                 link && (
                   <Link
-                    activeStyle={{ borderBottom: '1px solid var(--theme-ui-colors-primary)' }}
+                    activeStyle={{ borderBottom: '2px solid var(--theme-ui-colors-primary)' }}
                     key={index}
                     style={{
                       borderBottom: '2px solid transparent',

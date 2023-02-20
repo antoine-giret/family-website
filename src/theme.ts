@@ -21,6 +21,10 @@ const theme: Theme = {
       },
     },
   },
+  fontWeights: {
+    body: 400,
+    heading: 300,
+  },
 };
 
 export default theme;

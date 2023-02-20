@@ -12,7 +12,7 @@ function Layout({
   return (
     <Flex sx={{ flexDirection: 'column', height: '100vh' }}>
       <Header {...props} />
-      <Box as='main' sx={{ flexGrow: 1 }}>
+      <Box as='main' sx={{ flexGrow: 1, padding: 4 }}>
         {children}
       </Box>
       <Footer {...props} />
